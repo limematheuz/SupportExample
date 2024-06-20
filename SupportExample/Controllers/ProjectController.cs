@@ -23,9 +23,7 @@ namespace SupportExample.Controllers
         public async Task<ActionResult<List<ProjectDto>>> GetAllProjects()
         {
             var projectsList = await _repository.GetAllProjects();
-            var projectsDto = _mapper.Map<List<ProjectDto>>(projectsList);
-            return Ok(projectsDto);
+            // var projectsDto = _mapper.Map<List<ProjectDto>>(projectsList);
+            return Ok(_mapper.Map<List<ProjectDto>>(projectsList));
         }
-        
-    }
-}
+} }
