@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SupportExample.Data;
 using SupportExample.Repositories;
+using SupportExample.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,7 @@ if (builder.Environment.IsDevelopment())
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 var app = builder.Build();
 

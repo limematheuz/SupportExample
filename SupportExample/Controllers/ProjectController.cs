@@ -1,6 +1,8 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SupportExample.Data;
+using SupportExample.DTOs;
 using SupportExample.Models;
 using SupportExample.Repositories;
 
@@ -11,15 +13,19 @@ namespace SupportExample.Controllers
     public class ProjectController : ControllerBase
     {
         private readonly IProjectRepository _repository;
-        public ProjectController(IProjectRepository repository)
+        private readonly IMapper _mapper;
+        public ProjectController(IProjectRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
         [HttpGet]
-        public async Task<ActionResult<List<Project>>> GetAllProjects()
+        public async Task<ActionResult<List<ProjectDto>>> GetAllProjects()
         {
             var projectsList = await _repository.GetAllProjects();
-            return Ok(projectsList);
+            var projectsDto = _mapper.Map<List<ProjectDto>>(projectsList);
+            return Ok(projectsDto);
         }
+        
     }
 }
